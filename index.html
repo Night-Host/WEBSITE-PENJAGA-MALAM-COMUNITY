@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Penjaga Malam</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  min-height:100vh;
+  overflow-x:hidden;
+  background:
+  radial-gradient(circle at top,#312e81 0%,transparent 35%),
+  radial-gradient(circle at bottom,#06b6d4 0%,transparent 35%),
+  linear-gradient(135deg,#050816,#0f172a,#020617);
+  color:white;
+  position:relative;
+}
+
+/* STARS */
+
+.stars{
+  position:fixed;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  z-index:-2;
+}
+
+.star{
+  position:absolute;
+  width:3px;
+  height:3px;
+  background:white;
+  border-radius:50%;
+  animation:twinkle 3s infinite alternate;
+}
+
+@keyframes twinkle{
+  from{
+    opacity:0.2;
+    transform:scale(0.7);
+  }
+  to{
+    opacity:1;
+    transform:scale(1.4);
+  }
+}
+
+/* FLOATING ORBS */
+
+.orb{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(90px);
+  z-index:-1;
+  animation:float 10s infinite ease-in-out;
+}
+
+.orb1{
+  width:300px;
+  height:300px;
+  background:#7c3aed;
+  top:-100px;
+  left:-100px;
+}
+
+.orb2{
+  width:250px;
+  height:250px;
+  background:#06b6d4;
+  bottom:-80px;
+  right:-80px;
+  animation-delay:3s;
+}
+
+@keyframes float{
+  0%{transform:translateY(0px);}
+  50%{transform:translateY(40px);}
+  100%{transform:translateY(0px);}
+}
+
+/* CONTAINER */
+
+.container{
+  width:100%;
+  max-width:1200px;
+  margin:auto;
+  padding:30px;
+}
+
+/* HEADER */
+
+.header{
+  text-align:center;
+  margin-bottom:40px;
+  animation:fadeDown 1s ease;
+}
+
+@keyframes fadeDown{
+  from{
+    opacity:0;
+    transform:translateY(-50px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.banner{
+  width:100%;
+  height:260px;
+  object-fit:cover;
+  border-radius:30px;
+  box-shadow:0 0 40px rgba(0,0,0,0.5);
+  animation:zoom 8s infinite alternate;
+}
+
+@keyframes zoom{
+  from{
+    transform:scale(1);
+  }
+  to{
+    transform:scale(1.03);
+  }
+}
+
+.logo{
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  margin-top:-70px;
+  border:6px solid white;
+  object-fit:cover;
+  box-shadow:0 0 30px #7c3aed;
+  animation:spinGlow 6s infinite linear;
+}
+
+@keyframes spinGlow{
+  0%{
+    box-shadow:0 0 20px #7c3aed;
+  }
+  50%{
+    box-shadow:0 0 50px #06b6d4;
+  }
+  100%{
+    box-shadow:0 0 20px #7c3aed;
+  }
+}
+
+.header h1{
+  font-size:55px;
+  margin-top:20px;
+  animation:glowText 3s infinite alternate;
+}
+
+@keyframes glowText{
+  from{
+    text-shadow:0 0 10px #7c3aed;
+  }
+  to{
+    text-shadow:0 0 30px #06b6d4;
+  }
+}
+
+.header p{
+  margin-top:10px;
+  color:#cbd5e1;
+  font-size:18px;
+}
+
+/* GRID */
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
+}
+
+/* CARD */
+
+.card{
+  position:relative;
+  overflow:hidden;
+  border-radius:28px;
+  padding:30px;
+  min-height:300px;
+  transition:0.4s;
+  animation:fadeUp 1s ease;
+}
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(40px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.card:hover{
+  transform:translateY(-12px) scale(1.03) rotate(1deg);
+}
+
+/* COLORS */
+
+.discord{
+  background:linear-gradient(135deg,#5865F2,#2c2f77);
+}
+
+.tiktok{
+  background:linear-gradient(135deg,#000,#222);
+}
+
+.youtube{
+  background:linear-gradient(135deg,#ff0000,#5c0000);
+}
+
+.instagram{
+  background:linear-gradient(135deg,#ff00aa,#ff6600,#7c3aed);
+}
+
+.saweria{
+  background:linear-gradient(135deg,#ffcc00,#ff8c00);
+  color:black;
+}
+
+/* SHAPES */
+
+.card::before{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  background:rgba(255,255,255,0.08);
+  border-radius:50%;
+  top:-60px;
+  right:-60px;
+  animation:rotate 12s linear infinite;
+}
+
+@keyframes rotate{
+  from{
+    transform:rotate(0deg);
+  }
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+/* ICON */
+
+.card i{
+  font-size:60px;
+  margin-bottom:20px;
+  animation:bounce 2s infinite;
+}
+
+@keyframes bounce{
+  0%,100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(-10px);
+  }
+}
+
+.card h2{
+  font-size:34px;
+  margin-bottom:10px;
+}
+
+.card p{
+  margin-bottom:25px;
+  opacity:0.9;
+}
+
+/* BUTTONS */
+
+.accounts{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+.accounts a{
+  text-decoration:none;
+  color:white;
+  padding:14px;
+  border-radius:15px;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(10px);
+  transition:0.3s;
+  font-weight:600;
+  position:relative;
+  overflow:hidden;
+}
+
+.accounts a::before{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(255,255,255,0.25);
+  left:-100%;
+  top:0;
+  transition:0.5s;
+}
+
+.accounts a:hover::before{
+  left:100%;
+}
+
+.accounts a:hover{
+  transform:translateX(8px) scale(1.03);
+  background:white;
+  color:black;
+}
+
+/* FOOTER */
+
+.footer{
+  text-align:center;
+  margin-top:50px;
+  padding:20px;
+  color:#94a3b8;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+  .header h1{
+    font-size:38px;
+  }
+
+  .banner{
+    height:180px;
+  }
+
+}
+
+</style>
+</head>
+<body>
+
+<!-- STARS -->
+
+<div class="stars">
+
+  <div class="star" style="top:10%;left:15%;"></div>
+  <div class="star" style="top:20%;left:80%;"></div>
+  <div class="star" style="top:70%;left:30%;"></div>
+  <div class="star" style="top:40%;left:60%;"></div>
+  <div class="star" style="top:85%;left:75%;"></div>
+  <div class="star" style="top:50%;left:10%;"></div>
+  <div class="star" style="top:15%;left:45%;"></div>
+  <div class="star" style="top:65%;left:55%;"></div>
+
+</div>
+
+<!-- ORBS -->
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<div class="container">
+
+  <!-- HEADER -->
+
+  <div class="header">
+
+    <img class="banner"
+    src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1600&auto=format&fit=crop">
+
+    <img class="logo"
+    src="https://i.imgur.com/2DhmtJ4.png">
+
+    <h1>Penjaga Malam</h1>
+
+    <p>
+      Official Community • Explore semua akun komunitas kami
+    </p>
+
+  </div>
+
+  <!-- GRID -->
+
+  <div class="grid">
+
+    <!-- DISCORD -->
+
+    <div class="card discord">
+
+      <i class="fab fa-discord"></i>
+
+      <h2>Discord</h2>
+
+      <p>
+        Join server komunitas utama dan kedua.
+      </p>
+
+      <div class="accounts">
+
+        <a href="https://discord.gg/link-zulfa" target="_blank">
+          🌙 Jupar
+        </a>
+
+        <a href="https://discord.gg/link-yoru" target="_blank">
+          ⚔️ Yoru/Hann
+        </a>
+
+      </div>
+
+    </div>
+
+    <!-- TIKTOK -->
+
+    <div class="card tiktok">
+
+      <i class="fab fa-tiktok"></i>
+
+      <h2>TikTok</h2>
+
+      <p>
+        Konten edit, gaming, montage, dan upload terbaru.
+      </p>
+
+      <div class="accounts">
+
+        <a href="https://www.tiktok.com/@alzufarrr?_r=1&_t=ZS-969f1oB3H2y" target="_blank">
+          🌙 Jupar
+        </a>
+
+        <a href="https://www.tiktok.com/@yoru_melvin?_r=1&_t=ZS-969f4fpzV80" target="_blank">
+          ⚔️ Yoru/Hann
+        </a>
+
+      </div>
+
+    </div>
+
+    <!-- YOUTUBE -->
+
+    <div class="card youtube">
+
+      <i class="fab fa-youtube"></i>
+
+      <h2>YouTube</h2>
+
+      <p>
+        Gameplay, shorts, livestream, dan project terbaru.
+      </p>
+
+      <div class="accounts">
+
+        <a href="https://youtube.com/" target="_blank">
+          🌙 Jupar
+        </a>
+
+        <a href="https://youtube.com/@fudo_z?si=9B_Lv5BPWhWVpVox" target="_blank">
+          ⚔️ Yoru/Hann
+        </a>
+
+      </div>
+
+    </div>
+
+    <!-- INSTAGRAM -->
+
+    <div class="card instagram">
+
+      <i class="fab fa-instagram"></i>
+
+      <h2>Instagram</h2>
+
+      <p>
+        Story, info komunitas, dan posting terbaru.
+      </p>
+
+      <div class="accounts">
+
+        <a href="https://www.instagram.com/alzufarrr?igsh=MXExZG84aWd6a3FmMg==" target="_blank">
+          🌙 Jupar
+        </a>
+
+        <a href="https://www.instagram.com/yoruu_melvin?igsh=eWduZzM2dGt4ZGN4" target="_blank">
+          ⚔️ Yoru/Hann
+        </a>
+
+      </div>
+
+    </div>
+
+    <!-- SAWERIA -->
+
+    <div class="card saweria">
+
+      <i class="fas fa-hand-holding-dollar"></i>
+
+      <h2>Saweria</h2>
+
+      <p>
+        Support creator favorit dan komunitas Penjaga Malam.
+      </p>
+
+      <div class="accounts">
+
+        <a href="https://saweria.co/farrY8" target="_blank">
+          🌙 Jupar
+        </a>
+
+        <a href="https://saweria.co/FudoZ" target="_blank">
+          ⚔️ Yoru/Hann
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="footer">
+    © 2026 Penjaga Malam • Stay In The Darkness 🌙
+  </div>
+
+</div>
+
+</body>
+</html>
