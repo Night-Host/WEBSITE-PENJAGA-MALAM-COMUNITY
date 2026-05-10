@@ -9,7 +9,7 @@
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
@@ -18,29 +18,117 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
   padding:0;
   box-sizing:border-box;
   font-family:'Poppins',sans-serif;
-}
-
-html{
   scroll-behavior:smooth;
 }
 
 body{
-  min-height:100vh;
   overflow-x:hidden;
   background:
   radial-gradient(circle at top,#312e81 0%,transparent 35%),
   radial-gradient(circle at bottom,#06b6d4 0%,transparent 35%),
   linear-gradient(135deg,#050816,#0f172a,#020617);
   color:white;
+  min-height:100vh;
   position:relative;
 }
 
-/* STARS */
+/* ================= LOADING ================= */
+
+.loader{
+  position:fixed;
+  inset:0;
+  background:#020617;
+  z-index:999999;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  transition:1s;
+}
+
+.loader.hide{
+  opacity:0;
+  visibility:hidden;
+}
+
+.loader-circle{
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  border:6px solid rgba(255,255,255,0.08);
+  border-top:6px solid #7c3aed;
+  border-bottom:6px solid #06b6d4;
+  animation:spin 1.5s linear infinite;
+  box-shadow:
+  0 0 30px #7c3aed,
+  0 0 60px #06b6d4;
+}
+
+@keyframes spin{
+  100%{
+    transform:rotate(360deg);
+  }
+}
+
+.loader h1{
+  margin-top:30px;
+  font-size:42px;
+  animation:glowText 2s infinite alternate;
+}
+
+.loader p{
+  margin-top:10px;
+  color:#94a3b8;
+  letter-spacing:4px;
+}
+
+/* ================= PORTAL ================= */
+
+.portal-transition{
+  position:fixed;
+  inset:0;
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:99999;
+  opacity:0;
+  visibility:hidden;
+  transition:1s;
+}
+
+.portal-transition.active{
+  opacity:1;
+  visibility:visible;
+}
+
+.portal{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:
+  radial-gradient(circle,#06b6d4,#7c3aed,#000);
+  box-shadow:
+  0 0 50px #7c3aed,
+  0 0 120px #06b6d4;
+  animation:portalZoom 2s forwards;
+}
+
+@keyframes portalZoom{
+  0%{
+    transform:scale(1);
+  }
+
+  100%{
+    transform:scale(80);
+  }
+}
+
+/* ================= STARS ================= */
 
 .stars{
   position:fixed;
-  width:100%;
-  height:100%;
+  inset:0;
   overflow:hidden;
   z-index:-2;
 }
@@ -59,143 +147,209 @@ body{
     opacity:0.2;
     transform:scale(0.7);
   }
+
   to{
     opacity:1;
-    transform:scale(1.4);
+    transform:scale(1.5);
   }
 }
 
-/* FLOATING ORBS */
+.meteor{
+  position:absolute;
+  width:350px;
+  height:2px;
+  background:linear-gradient(90deg,white,transparent);
+  transform:rotate(-35deg);
+  animation:meteor 6s linear infinite;
+}
+
+@keyframes meteor{
+
+  0%{
+    top:-10%;
+    left:-20%;
+  }
+
+  100%{
+    top:100%;
+    left:120%;
+  }
+
+}
+
+/* ================= ORBS ================= */
 
 .orb{
   position:fixed;
   border-radius:50%;
-  filter:blur(90px);
+  filter:blur(100px);
   z-index:-1;
   animation:float 10s infinite ease-in-out;
 }
 
 .orb1{
-  width:300px;
-  height:300px;
+  width:320px;
+  height:320px;
   background:#7c3aed;
-  top:-100px;
-  left:-100px;
+  top:-120px;
+  left:-120px;
 }
 
 .orb2{
-  width:250px;
-  height:250px;
+  width:260px;
+  height:260px;
   background:#06b6d4;
-  bottom:-80px;
-  right:-80px;
+  bottom:-100px;
+  right:-100px;
   animation-delay:3s;
 }
 
 @keyframes float{
-  0%{transform:translateY(0px);}
-  50%{transform:translateY(40px);}
-  100%{transform:translateY(0px);}
+
+  0%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(40px);
+  }
+
+  100%{
+    transform:translateY(0);
+  }
+
 }
 
-/* LOADING SCREEN */
+/* ================= HOME ================= */
 
-.loader{
-  position:fixed;
-  inset:0;
-  background:#020617;
+.homepage{
+  min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
   flex-direction:column;
-  z-index:9999;
-  animation:hideLoader 1s forwards;
-  animation-delay:2.5s;
+  text-align:center;
+  padding:40px;
+  position:relative;
 }
 
-.loader h1{
-  font-size:40px;
-  margin-top:20px;
-  animation:glowText 2s infinite alternate;
+.homepage h1{
+  font-size:90px;
+  font-weight:800;
+  animation:glowText 3s infinite alternate;
 }
 
-.loader-circle{
-  width:90px;
-  height:90px;
-  border:6px solid rgba(255,255,255,0.1);
-  border-top:6px solid #7c3aed;
-  border-radius:50%;
-  animation:spin 1s linear infinite;
-}
+@keyframes glowText{
+  from{
+    text-shadow:0 0 10px #7c3aed;
+  }
 
-@keyframes spin{
   to{
-    transform:rotate(360deg);
+    text-shadow:
+    0 0 25px #06b6d4,
+    0 0 50px #06b6d4;
   }
 }
 
-@keyframes hideLoader{
-  to{
-    opacity:0;
-    visibility:hidden;
-  }
+.homepage p{
+  margin-top:15px;
+  font-size:18px;
+  color:#cbd5e1;
+  max-width:700px;
 }
 
-/* CONTAINER */
-
-.container{
-  width:100%;
-  max-width:1200px;
-  margin:auto;
-  padding:30px;
-}
-
-/* NAVBAR */
-
-.navbar{
-  position:sticky;
-  top:20px;
-  z-index:100;
+.member-box{
+  margin-top:40px;
   display:flex;
+  flex-wrap:wrap;
   justify-content:center;
-  margin-bottom:30px;
+  gap:20px;
 }
 
-.nav-menu{
-  display:flex;
-  gap:15px;
+.member{
+  padding:18px 28px;
+  border-radius:20px;
   background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(10px);
-  padding:15px 25px;
-  border-radius:50px;
-  box-shadow:0 0 20px rgba(0,0,0,0.3);
+  border:1px solid rgba(255,255,255,0.1);
+  backdrop-filter:blur(12px);
+  transition:0.4s;
+  min-width:220px;
 }
 
-.nav-menu a{
-  text-decoration:none;
+.member:hover{
+  transform:translateY(-10px) scale(1.05);
+  box-shadow:
+  0 0 25px rgba(124,58,237,0.7);
+}
+
+.member h2{
+  font-size:24px;
+  margin-bottom:8px;
+}
+
+.member span{
+  color:#94a3b8;
+}
+
+.enter-btn{
+  margin-top:55px;
+  padding:20px 50px;
+  border:none;
+  border-radius:100px;
+  font-size:22px;
+  font-weight:700;
   color:white;
-  font-weight:600;
-  transition:0.3s;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  background:
+  linear-gradient(135deg,#7c3aed,#06b6d4);
+  transition:0.4s;
+  box-shadow:
+  0 0 30px rgba(124,58,237,0.7);
 }
 
-.nav-menu a:hover{
-  color:#06b6d4;
-  transform:translateY(-2px);
+.enter-btn:hover{
+  transform:scale(1.08);
+  box-shadow:
+  0 0 40px #06b6d4,
+  0 0 80px #7c3aed;
 }
 
-/* HEADER */
+.enter-btn::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(255,255,255,0.2);
+  transform:translateX(-100%);
+  transition:0.5s;
+}
+
+.enter-btn:hover::before{
+  transform:translateX(100%);
+}
+
+/* ================= MAIN WEBSITE ================= */
+
+.main-site{
+  display:none;
+  padding:40px;
+  max-width:1300px;
+  margin:auto;
+}
 
 .header{
   text-align:center;
-  margin-bottom:40px;
+  margin-bottom:50px;
   animation:fadeDown 1s ease;
 }
 
 @keyframes fadeDown{
   from{
     opacity:0;
-    transform:translateY(-50px);
+    transform:translateY(-40px);
   }
+
   to{
     opacity:1;
     transform:translateY(0);
@@ -204,104 +358,60 @@ body{
 
 .banner{
   width:100%;
-  height:260px;
+  height:320px;
   object-fit:cover;
-  border-radius:30px;
-  box-shadow:0 0 40px rgba(0,0,0,0.5);
+  border-radius:35px;
   animation:zoom 8s infinite alternate;
+  box-shadow:0 0 40px rgba(0,0,0,0.5);
 }
 
 @keyframes zoom{
   from{
     transform:scale(1);
   }
+
   to{
-    transform:scale(1.03);
+    transform:scale(1.04);
   }
 }
 
 .logo{
-  width:140px;
-  height:140px;
-  border-radius:50%;
-  margin-top:-70px;
-  border:6px solid white;
+  width:160px;
+  height:160px;
   object-fit:cover;
-  box-shadow:0 0 30px #7c3aed;
-  animation:spinGlow 6s infinite linear;
-}
-
-@keyframes spinGlow{
-  0%{
-    box-shadow:0 0 20px #7c3aed;
-  }
-  50%{
-    box-shadow:0 0 50px #06b6d4;
-  }
-  100%{
-    box-shadow:0 0 20px #7c3aed;
-  }
+  border-radius:50%;
+  margin-top:-80px;
+  border:6px solid white;
+  box-shadow:
+  0 0 30px #7c3aed;
 }
 
 .header h1{
-  font-size:55px;
   margin-top:20px;
+  font-size:58px;
   animation:glowText 3s infinite alternate;
 }
 
-@keyframes glowText{
-  from{
-    text-shadow:0 0 10px #7c3aed;
-  }
-  to{
-    text-shadow:0 0 30px #06b6d4;
-  }
-}
-
 .header p{
+  color:#cbd5e1;
   margin-top:10px;
-  color:#cbd5e1;
-  font-size:18px;
 }
 
-/* ABOUT */
-
-.about{
-  margin:50px 0;
-  padding:35px;
-  border-radius:30px;
-  background:rgba(255,255,255,0.06);
-  backdrop-filter:blur(12px);
-  animation:fadeUp 1s ease;
-}
-
-.about h2{
-  font-size:35px;
-  margin-bottom:15px;
-}
-
-.about p{
-  color:#cbd5e1;
-  line-height:1.8;
-}
-
-/* GRID */
+/* ================= GRID ================= */
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
   gap:30px;
 }
-
-/* CARD */
 
 .card{
   position:relative;
   overflow:hidden;
-  border-radius:28px;
+  border-radius:30px;
   padding:30px;
-  min-height:300px;
   transition:0.4s;
+  min-height:320px;
   animation:fadeUp 1s ease;
 }
 
@@ -310,6 +420,7 @@ body{
     opacity:0;
     transform:translateY(40px);
   }
+
   to{
     opacity:1;
     transform:translateY(0);
@@ -317,7 +428,53 @@ body{
 }
 
 .card:hover{
-  transform:translateY(-12px) scale(1.03) rotate(1deg);
+  transform:translateY(-12px) scale(1.03);
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  width:200px;
+  height:200px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.08);
+  top:-70px;
+  right:-70px;
+  animation:rotate 12s linear infinite;
+}
+
+@keyframes rotate{
+  100%{
+    transform:rotate(360deg);
+  }
+}
+
+.card i{
+  font-size:65px;
+  margin-bottom:20px;
+  animation:bounce 2s infinite;
+}
+
+@keyframes bounce{
+
+  0%,100%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(-10px);
+  }
+
+}
+
+.card h2{
+  font-size:36px;
+  margin-bottom:10px;
+}
+
+.card p{
+  margin-bottom:25px;
+  opacity:0.95;
 }
 
 /* COLORS */
@@ -338,71 +495,21 @@ body{
   background:linear-gradient(135deg,#ff00aa,#ff6600,#7c3aed);
 }
 
-.saweria{
-  background:linear-gradient(135deg,#ffcc00,#ff8c00);
-  color:black;
-}
-
 .whatsapp{
-  background:linear-gradient(135deg,#25D366,#128C7E);
+  background:linear-gradient(135deg,#25D366,#0b7d3e);
 }
 
 .github{
-  background:linear-gradient(135deg,#24292e,#0d1117);
+  background:linear-gradient(135deg,#24292e,#000);
 }
 
 .roblox{
-  background:linear-gradient(135deg,#ff3131,#7a0000);
+  background:linear-gradient(135deg,#ff2d55,#8b0000);
 }
 
-/* SHAPES */
-
-.card::before{
-  content:"";
-  position:absolute;
-  width:180px;
-  height:180px;
-  background:rgba(255,255,255,0.08);
-  border-radius:50%;
-  top:-60px;
-  right:-60px;
-  animation:rotate 12s linear infinite;
-}
-
-@keyframes rotate{
-  from{
-    transform:rotate(0deg);
-  }
-  to{
-    transform:rotate(360deg);
-  }
-}
-
-/* ICON */
-
-.card i{
-  font-size:60px;
-  margin-bottom:20px;
-  animation:bounce 2s infinite;
-}
-
-@keyframes bounce{
-  0%,100%{
-    transform:translateY(0);
-  }
-  50%{
-    transform:translateY(-10px);
-  }
-}
-
-.card h2{
-  font-size:34px;
-  margin-bottom:10px;
-}
-
-.card p{
-  margin-bottom:25px;
-  opacity:0.9;
+.saweria{
+  background:linear-gradient(135deg,#ffcc00,#ff8c00);
+  color:black;
 }
 
 /* BUTTONS */
@@ -419,8 +526,7 @@ body{
   padding:14px;
   border-radius:15px;
   background:rgba(255,255,255,0.15);
-  backdrop-filter:blur(10px);
-  transition:0.3s;
+  transition:0.4s;
   font-weight:600;
   position:relative;
   overflow:hidden;
@@ -429,16 +535,14 @@ body{
 .accounts a::before{
   content:"";
   position:absolute;
-  width:100%;
-  height:100%;
-  background:rgba(255,255,255,0.25);
-  left:-100%;
-  top:0;
+  inset:0;
+  background:rgba(255,255,255,0.2);
+  transform:translateX(-100%);
   transition:0.5s;
 }
 
 .accounts a:hover::before{
-  left:100%;
+  transform:translateX(100%);
 }
 
 .accounts a:hover{
@@ -447,51 +551,29 @@ body{
   color:black;
 }
 
-/* DEVELOPER */
-
-.developer{
-  margin-top:60px;
-  padding:35px;
-  border-radius:30px;
-  background:rgba(255,255,255,0.06);
-  backdrop-filter:blur(12px);
-  text-align:center;
-}
-
-.developer h2{
-  font-size:35px;
-  margin-bottom:15px;
-}
-
-.developer p{
-  color:#cbd5e1;
-  line-height:1.8;
-}
-
 /* FOOTER */
 
 .footer{
   text-align:center;
-  margin-top:50px;
-  padding:20px;
+  margin-top:60px;
   color:#94a3b8;
+  padding-bottom:30px;
 }
 
 /* MOBILE */
 
-@media(max-width:700px){
+@media(max-width:768px){
+
+  .homepage h1{
+    font-size:50px;
+  }
 
   .header h1{
-    font-size:38px;
+    font-size:40px;
   }
 
   .banner{
-    height:180px;
-  }
-
-  .nav-menu{
-    flex-wrap:wrap;
-    justify-content:center;
+    height:200px;
   }
 
 }
@@ -500,28 +582,31 @@ body{
 </head>
 <body>
 
-<!-- LOADER -->
+<!-- LOADING -->
 
-<div class="loader">
+<div class="loader" id="loader">
 
   <div class="loader-circle"></div>
 
   <h1>Penjaga Malam</h1>
 
+  <p>ENTERING THE DARKNESS...</p>
+
+</div>
+
+<!-- PORTAL TRANSITION -->
+
+<div class="portal-transition" id="portalTransition">
+
+  <div class="portal"></div>
+
 </div>
 
 <!-- STARS -->
 
-<div class="stars">
+<div class="stars" id="stars">
 
-  <div class="star" style="top:10%;left:15%;"></div>
-  <div class="star" style="top:20%;left:80%;"></div>
-  <div class="star" style="top:70%;left:30%;"></div>
-  <div class="star" style="top:40%;left:60%;"></div>
-  <div class="star" style="top:85%;left:75%;"></div>
-  <div class="star" style="top:50%;left:10%;"></div>
-  <div class="star" style="top:15%;left:45%;"></div>
-  <div class="star" style="top:65%;left:55%;"></div>
+  <div class="meteor"></div>
 
 </div>
 
@@ -530,24 +615,46 @@ body{
 <div class="orb orb1"></div>
 <div class="orb orb2"></div>
 
-<div class="container">
+<!-- HOMEPAGE -->
 
-  <!-- NAVBAR -->
+<section class="homepage" id="homepage">
 
-  <div class="navbar">
+  <h1>Penjaga Malam</h1>
 
-    <div class="nav-menu">
+  <p>
+    Community Gaming • Streamer • Developer • Creator
+    <br>
+    Enter The Darkness And Explore Our Universe
+  </p>
 
-      <a href="#">Home</a>
-      <a href="#about">About</a>
-      <a href="#social">Social</a>
-      <a href="#developer">Developer</a>
+  <div class="member-box">
 
+    <div class="member">
+      <h2>🌙 Jupar</h2>
+      <span>Main Streamer</span>
+    </div>
+
+    <div class="member">
+      <h2>⚔️ Yoru/Hann</h2>
+      <span>Developer & Streamer</span>
+    </div>
+
+    <div class="member">
+      <h2>💻 Penjaga Team</h2>
+      <span>Community Developer</span>
     </div>
 
   </div>
 
-  <!-- HEADER -->
+  <button class="enter-btn" id="enterBtn">
+    ENTER PORTAL
+  </button>
+
+</section>
+
+<!-- MAIN WEBSITE -->
+
+<div class="main-site" id="mainSite">
 
   <div class="header">
 
@@ -565,24 +672,7 @@ body{
 
   </div>
 
-  <!-- ABOUT -->
-
-  <div class="about" id="about">
-
-    <h2>Tentang Komunitas</h2>
-
-    <p>
-      Penjaga Malam adalah komunitas gaming, streaming, content creator,
-      dan social community yang berfokus pada kebersamaan, project kreatif,
-      dan dunia malam. dengan banyak teman streamer dll,tapi walaupun bukan streamer kalian masih bisa bergabung dengan kami bahkan bermain bersama kami, tunggu apa lagi Bergabunglah bersama kami dan jadilah bagian
-      dari perjalanan Penjaga Malam.
-    </p>
-
-  </div>
-
-  <!-- GRID -->
-
-  <div class="grid" id="social">
+  <div class="grid">
 
     <!-- DISCORD -->
 
@@ -592,19 +682,12 @@ body{
 
       <h2>Discord</h2>
 
-      <p>
-        Join server komunitas utama dan kedua.
-      </p>
+      <p>Join server komunitas utama dan kedua.</p>
 
       <div class="accounts">
 
-        <a href="https://discord.gg/link-zulfa" target="_blank">
-          🌙 Zulfa
-        </a>
-
-        <a href="https://discord.gg/link-yoru" target="_blank">
-          ⚔️ Yoru/Hann
-        </a>
+        <a href="#">🌙 Jupar</a>
+        <a href="#">⚔️ Yoru/Hann</a>
 
       </div>
 
@@ -618,19 +701,12 @@ body{
 
       <h2>TikTok</h2>
 
-      <p>
-        Konten edit, gaming, montage, dan upload terbaru.
-      </p>
+      <p>Konten edit, montage, dan upload terbaru.</p>
 
       <div class="accounts">
 
-        <a href="https://tiktok.com/@zulfa" target="_blank">
-          🌙 Zulfa
-        </a>
-
-        <a href="https://tiktok.com/@yoru" target="_blank">
-          ⚔️ Yoru/Hann
-        </a>
+        <a href="#">🌙 Jupar</a>
+        <a href="#">⚔️ Yoru/Hann</a>
 
       </div>
 
@@ -644,19 +720,12 @@ body{
 
       <h2>YouTube</h2>
 
-      <p>
-        Gameplay, shorts, livestream, dan project terbaru.
-      </p>
+      <p>Gameplay, livestream, dan shorts terbaru.</p>
 
       <div class="accounts">
 
-        <a href="https://youtube.com/" target="_blank">
-          🌙 Zulfa
-        </a>
-
-        <a href="https://youtube.com/" target="_blank">
-          ⚔️ Yoru/Hann
-        </a>
+        <a href="#">🌙 Jupar</a>
+        <a href="#">⚔️ Yoru/Hann</a>
 
       </div>
 
@@ -670,19 +739,12 @@ body{
 
       <h2>Instagram</h2>
 
-      <p>
-        Story, info komunitas, dan posting terbaru.
-      </p>
+      <p>Story, posting, dan info komunitas.</p>
 
       <div class="accounts">
 
-        <a href="https://instagram.com/" target="_blank">
-          🌙 Zulfa
-        </a>
-
-        <a href="https://instagram.com/" target="_blank">
-          ⚔️ Yoru/Hann
-        </a>
+        <a href="#">🌙 Jupar</a>
+        <a href="#">⚔️ Yoru/Hann</a>
 
       </div>
 
@@ -696,19 +758,12 @@ body{
 
       <h2>WhatsApp</h2>
 
-      <p>
-        Gabung saluran dan hubungi admin komunitas.
-      </p>
+      <p>Gabung saluran dan komunitas WhatsApp.</p>
 
       <div class="accounts">
 
-        <a href="https://whatsapp.com/channel/" target="_blank">
-          🌙 Saluran Zulfa
-        </a>
-
-        <a href="https://wa.me/6281234567890" target="_blank">
-          ⚔️ Chat Yoru/Hann
-        </a>
+        <a href="#">🌙 Saluran Jupar</a>
+        <a href="#">⚔️ Saluran Yoru</a>
 
       </div>
 
@@ -722,19 +777,12 @@ body{
 
       <h2>GitHub</h2>
 
-      <p>
-        Repository project, website, dan source code komunitas.
-      </p>
+      <p>Repository source code dan project.</p>
 
       <div class="accounts">
 
-        <a href="https://github.com/" target="_blank">
-          🌙 Zulfa
-        </a>
-
-        <a href="https://github.com/" target="_blank">
-          ⚔️ Yoru/Hann
-        </a>
+        <a href="#">🌙 Jupar</a>
+        <a href="#">⚔️ Yoru/Hann</a>
 
       </div>
 
@@ -744,23 +792,16 @@ body{
 
     <div class="card roblox">
 
-      <i class="fas fa-gamepad"></i>
+      <i class="fas fa-cube"></i>
 
       <h2>Roblox</h2>
 
-      <p>
-        Main bareng, explore game, dan join squad komunitas.
-      </p>
+      <p>Follow account Roblox dan game community.</p>
 
       <div class="accounts">
 
-        <a href="https://roblox.com/users/1/profile" target="_blank">
-          🌙 Zulfa
-        </a>
-
-        <a href="https://roblox.com/users/2/profile" target="_blank">
-          ⚔️ Yoru/Hann
-        </a>
+        <a href="#">🌙 Jupar</a>
+        <a href="#">⚔️ Yoru/Hann</a>
 
       </div>
 
@@ -774,19 +815,12 @@ body{
 
       <h2>Saweria</h2>
 
-      <p>
-        Support creator favorit dan komunitas Penjaga Malam.
-      </p>
+      <p>Support creator favorit Penjaga Malam.</p>
 
       <div class="accounts">
 
-        <a href="https://saweria.co/zulfa" target="_blank">
-          🌙 Zulfa
-        </a>
-
-        <a href="https://saweria.co/yoru" target="_blank">
-          ⚔️ Yoru/Hann
-        </a>
+        <a href="#">🌙 Jupar</a>
+        <a href="#">⚔️ Yoru/Hann</a>
 
       </div>
 
@@ -794,27 +828,86 @@ body{
 
   </div>
 
-  <!-- DEVELOPER -->
-
-  <div class="developer" id="developer">
-
-    <h2>Developer</h2>
-
-    <p>
-      Website ini dibuat oleh hann/yoru
-      menggunakan HTML, CSS, dan animasi modern.
-      Dibuat khusus untuk komunitas Penjaga Malam.
-    </p>
-
-  </div>
-
-  <!-- FOOTER -->
-
   <div class="footer">
-    © 2026 Penjaga Malam • Stay In The Darkness 
+    © 2026 Penjaga Malam • Stay In The Darkness 🌙
   </div>
 
 </div>
+
+<script>
+
+/* LOADING */
+
+window.addEventListener("load",()=>{
+
+  setTimeout(()=>{
+
+    document.getElementById("loader")
+    .classList.add("hide");
+
+  },2500);
+
+});
+
+/* RANDOM STARS */
+
+const starsContainer =
+document.getElementById("stars");
+
+for(let i=0;i<120;i++){
+
+  const star=document.createElement("div");
+
+  star.classList.add("star");
+
+  star.style.top=Math.random()*100+"%";
+
+  star.style.left=Math.random()*100+"%";
+
+  star.style.animationDuration=
+  (Math.random()*3+2)+"s";
+
+  star.style.opacity=Math.random();
+
+  starsContainer.appendChild(star);
+
+}
+
+/* PORTAL ENTER */
+
+const enterBtn =
+document.getElementById("enterBtn");
+
+const portalTransition =
+document.getElementById("portalTransition");
+
+const homepage =
+document.getElementById("homepage");
+
+const mainSite =
+document.getElementById("mainSite");
+
+enterBtn.addEventListener("click",()=>{
+
+  portalTransition.classList.add("active");
+
+  setTimeout(()=>{
+
+    homepage.style.display="none";
+
+    mainSite.style.display="block";
+
+  },1500);
+
+  setTimeout(()=>{
+
+    portalTransition.style.display="none";
+
+  },2300);
+
+});
+
+</script>
 
 </body>
 </html>
